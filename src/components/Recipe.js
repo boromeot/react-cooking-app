@@ -10,31 +10,31 @@ export default function Recipe(props) {
     ingredients
   } = props
   return (
-      <div>
-        <div>
-          <h3> { name } </h3>
+      <div className="recipe">
+        <div className="recipe-header">
+          <h3 className="recipe-title"> { name } </h3>
           <div>
-            <button>Edit</button>
-            <button>Delete</button>
+            <button className="btn btn-primary mr-1">Edit</button>
+            <button className="btn btn-danger">Delete</button>
           </div>
         </div>
-        <div>
-          <span>Cook Time</span>
-          <span>{cookTime}</span>
+        <div className="recipe-row">
+          <span className="recipe-label">Cook Time</span>
+          <span className="recipe-value">{cookTime}</span>
         </div>
-        <div>
-          <span>Servings</span>
-          <span>{servings}</span>
+        <div className="recipe-row">
+          <span className="recipe-label">Servings</span>
+          <span className="recipe-value ">{servings}</span>
         </div>
-        <div>
-          <span>Instructions</span>
-          <div>
+        <div className="recipe-row">
+          <span className="recipe-label">Instructions</span>
+          <div className="recipe-value recipe-value-indented recipe-instructions">
             { intructions }
           </div>
         </div>
-        <div>
-          <span>Ingredients</span>
-          <div>
+        <div className="recipe-row">
+          <span className="recipe-label">Ingredients</span>
+          <div className="recipe-value recipe-value-indented">
             <IngredientsList ingredients={ ingredients } />
           </div>
         </div>
