@@ -1,12 +1,33 @@
-import React from 'react';
-import RecipeList from './RecipeList.js'
-import Recipe from './Recipe.js'
-import '../css/app.css'
+import React, { useState } from 'react';
+import RecipeList from './RecipeList.js';
+import Recipe from './Recipe.js';
+import '../css/app.css';
 
 function App() {
+  const [recipes, setRecipes] = useState(sampleRecipes)
   return (
-    <RecipeList recipes={sampleRecipes} />
+    <RecipeList
+      recipes={recipes}
+      handleRecipeAdd = {handleRecipeAdd}
+      handleRecipeDelete = {handleRecipeDelete}
+    />
   )
+  function handleRecipeAdd() {
+    const newRecipe = {
+      id: Date.now().toString(),
+      name: 'New',
+      servings: 1,
+      cookTime: '1:00',
+      instructions: 'Instruct',
+      ingredients: [
+        {id: Date.now().toString(), name: 'Name', amount: '1 Tbs'}
+      ]
+    }
+    setRecipes([...recipes, newRecipe])
+  }
+  function handleRecipeDelete(id) {
+    setRecipes(recipes.filter(recipe => recipe.id !== id))
+  }
 }
 
 const sampleRecipes =[
@@ -15,7 +36,7 @@ const sampleRecipes =[
     name: "Chicken",
     servings: 3,
     cookTime: "30mins",
-    intructions: "1. Salt Chicken\n2. Put chicken in oven\n3. Rotate it",
+    instructions: "1. Salt Chicken\n2. Put chicken in oven\n3. Rotate it",
     ingredients: [
       {
         id: 1,
@@ -34,7 +55,7 @@ const sampleRecipes =[
     name: "Pork",
     servings: 5,
     cookTime: "45mins",
-    intructions: "1. Paprika Pork\n2. Put Pork in oven\n3. Rotate it",
+    instructions: "1. Paprika Pork\n2. Put Pork in oven\n3. Rotate it",
     ingredients: [
       {
         id: 1,
