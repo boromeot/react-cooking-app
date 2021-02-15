@@ -3,14 +3,19 @@ import RecipeList from './RecipeList.js';
 import Recipe from './Recipe.js';
 import '../css/app.css';
 
+export const RecipeContext = React.createContext()
+
 function App() {
   const [recipes, setRecipes] = useState(sampleRecipes)
+
+  const recipeContextVlaue = {
+    handleRecipeAdd: handleRecipeAdd,
+    handleRecipeDelete: handleRecipeDelete
+  }
   return (
-    <RecipeList
-      recipes={recipes}
-      handleRecipeAdd = {handleRecipeAdd}
-      handleRecipeDelete = {handleRecipeDelete}
-    />
+    <RecipeContext.Provider value={recipeContextVlaue}>
+      <RecipeList recipes={recipes}/>
+    </RecipeContext.Provider>
   )
   function handleRecipeAdd() {
     const newRecipe = {
