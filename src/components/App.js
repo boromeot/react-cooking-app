@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import RecipeList from './RecipeList.js';
-import Recipe from './Recipe.js';
 import RecipeEdit from './RecipeEdit.js'
 import '../css/app.css';
 
