@@ -50,6 +50,7 @@ function App() {
         {id: Date.now().toString(), name: 'Name', amount: '1 Tbs'}
       ]
     }
+    setSelectedRecipeId(newRecipe.id)
     setRecipes([...recipes, newRecipe])
   }
 
@@ -61,6 +62,9 @@ function App() {
   }
 
   function handleRecipeDelete(id) {
+    if (selectedRecipeId != null && selectedRecipeId.id === id){
+      setSelectedRecipeId(undefined)
+    }
     setRecipes(recipes.filter(recipe => recipe.id !== id))
   }
 }
