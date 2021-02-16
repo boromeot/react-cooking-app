@@ -21,10 +21,11 @@ function App() {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(recipes))
   }, [recipes])
 
-  const recipeContextVlaue = {
+  const recipeContextValue = {
     handleRecipeAdd: handleRecipeAdd,
     handleRecipeDelete: handleRecipeDelete,
-    handleRecipeSelect: handleRecipeSelect
+    handleRecipeSelect: handleRecipeSelect,
+    handleRecipeChange: handleRecipeChange
   }
 
   function handleRecipeSelect(id) {
@@ -32,11 +33,12 @@ function App() {
   }
 
   return (
-    <RecipeContext.Provider value={recipeContextVlaue}>
+    <RecipeContext.Provider value={recipeContextValue}>
       <RecipeList recipes={recipes}/>
       {selectedRecipe && <RecipeEdit recipe={selectedRecipe}/>}
     </RecipeContext.Provider>
   )
+
   function handleRecipeAdd() {
     const newRecipe = {
       id: Date.now().toString(),
@@ -50,6 +52,14 @@ function App() {
     }
     setRecipes([...recipes, newRecipe])
   }
+
+  function handleRecipeChange(id, recipe) {
+    const newRecipes = [...recipes]
+    const index = newRecipes.findIndex(r => r.id === id)
+    newRecipes[index] = recipe
+    setRecipes(newRecipes)
+  }
+
   function handleRecipeDelete(id) {
     setRecipes(recipes.filter(recipe => recipe.id !== id))
   }

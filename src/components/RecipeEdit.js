@@ -1,7 +1,21 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import RecipeIngredientEdit from './RecipeIngredientEdit.js'
+import { RecipeContext } from './App.js'
 
 export default function RecipeEdit({recipe}) {
+  const { handleRecipeChange } = useContext(RecipeContext)
+
+  function handleChange(changes) {
+    handleRecipeChange(recipe.id, { ...recipe, ...changes })
+  }
+
+  function handleIngredientChange(id, ingredient) {
+    const newIngredients = [...recipe.ingredients]
+    const index = newIngredients.findIndex(i => i.id === id)
+    newIngredients[index] = ingredient
+    handleChange({ingredients: newIngredients})
+  }
+
   return (
     <div className="recipe-edit">
       <div className="recipe-edit-remove-button-container">
@@ -18,6 +32,7 @@ export default function RecipeEdit({recipe}) {
           name="name"
           id="name"
           value={recipe.name}
+          onInput={e => handleChange({name: e.target.value})}
           className="recipe-edit-input"
         />
         <label
@@ -30,6 +45,7 @@ export default function RecipeEdit({recipe}) {
           name="cookTime"
           id="cookTime"
           value={recipe.cookTime}
+          onInput={e => handleChange({cookTime: e.target.value})}
           className="recipe-edit-input"/>
         <label
           htmlFor="servings"
@@ -41,6 +57,7 @@ export default function RecipeEdit({recipe}) {
           name="servings"
           id="servings"
           value={recipe.servings}
+          onInput={e => handleChange({servings: parseInt(e.target.value) || ''})}
           min="1"
           className="recipe-edit-input"/>
         <label
@@ -52,6 +69,7 @@ export default function RecipeEdit({recipe}) {
           name="instructions"
           id="instructions"
           value={recipe.instructions}
+          onInput={e => handleChange({instructions: e.target.value})}
           className="recipe-edit-input">
         </textarea>
       </div>
@@ -64,6 +82,7 @@ export default function RecipeEdit({recipe}) {
         {recipe.ingredients.map(ingredient => (
           <RecipeIngredientEdit
             key={ingredient.id}
+            handleIngredientChange={handleIngredientChange}
             ingredient={ingredient}
           />
         ))}
